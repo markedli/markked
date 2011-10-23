@@ -9,3 +9,7 @@ $bot = Cinch::Bot.new do
     c.user = "markked"
   end
 end
+
+trap("INT") do
+  $bot.quit "Bot has been killed."
+end
