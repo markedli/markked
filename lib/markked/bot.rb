@@ -8,11 +8,13 @@ config = { 'irc' =>
     'realname' => "Handy, dandy, helper bot.",
     'user' => 'markked'
   }}
-
-config_file = ARGV.shift || File.expand_path("../../config/bot.yml", __FILE__)
+config_file = ARGV.shift || File.expand_path("../../../config/bot.yml", __FILE__)
 if File.exists? config_file
+  puts "Loading config from file: #{config_file}"
   file_config = YAML.load_file config_file
-  config.merge!(file_config)
+  config['irc'].merge!(file_config['irc'])
+else
+  puts "No config file found"
 end
 
 $bot = Cinch::Bot.new do
