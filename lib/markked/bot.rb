@@ -1,12 +1,27 @@
 require 'cinch'
+require 'yaml'
+
+config = { 'irc' =>
+  { 'server' => 'irc.freenode.net',
+    'channels' => "#markedli, #markedli-dev, #markedli-ui",
+    'nick' => 'markked',
+    'realname' => "Handy, dandy, helper bot.",
+    'user' => 'markked'
+  }}
+
+config_file = ARGV.shift || File.expand_path("../../config/bot.yml", __FILE__)
+if File.exists? config_file
+  file_config = YAML.load_file config_file
+  config.merge!(file_config)
+end
 
 $bot = Cinch::Bot.new do
   configure do |c|
-    c.server = "irc.freenode.net"
-    c.channels = ["#markedli", "#markedli-dev", "#markedli-ui"]
-    c.nick = "markked"
-    c.realname = "Handy, dandy, helper bot."
-    c.user = "markked"
+    c.server = config["irc"]["server"]
+    c.channels = config["irc"]["channels"].split(",")
+    c.nick = config["irc"]["nick"]
+    c.realname = config["irc"]["realname"]
+    c.user = config["irc"]["user"]
   end
 end
 
