@@ -24,6 +24,8 @@ end
 $bot = Cinch::Bot.new do
   configure do |c|
     c.server = config["irc"]["server"]
+    c.password = config["irc"]["password"]
+    c.port = config["irc"]["port"]
     c.channels = config["irc"]["channels"].split(",")
     c.nick = config["irc"]["nick"]
     c.realname = config["irc"]["realname"]

@@ -12,7 +12,8 @@ module Plugin
     listen_to :message, :action
     match /(.+) to hell/, :use_prefix => false
     def execute(m, damned)
-      damned = m.action_message.match(/(.+) to hell/) if m.action?
+      m.reply "got #{m.action_message}"
+      damned = m.action_message.match(/(.+) to hell/)[1] if m.action?
       return unless damned.start_with?( "feed", "send", "damn", "punt", "toss", "smite", "condemn", "hurl", "throw", "kick", "cast", "banish")
       parts = damned.split(" ")
       parts.delete_at(0)
