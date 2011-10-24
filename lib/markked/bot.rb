@@ -1,6 +1,7 @@
 require 'cinch'
 require 'yaml'
 require 'markked/plugins/twitter'
+require 'markked/plugins/down'
 
 config = { 'irc' =>
   { 'server' => 'irc.freenode.net',
@@ -25,7 +26,7 @@ $bot = Cinch::Bot.new do
     c.nick = config["irc"]["nick"]
     c.realname = config["irc"]["realname"]
     c.user = config["irc"]["user"]
-    c.plugins.plugins = [Plugin::Twitter]
+    c.plugins.plugins = [Plugin::Twitter, Plugin::Down]
   end
 end
 
