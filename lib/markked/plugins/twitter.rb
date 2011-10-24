@@ -3,7 +3,9 @@ require 'twitter'
 module Plugin
   class Twitter
     include Cinch::Plugin
-    prefix "tweet: "
+    set :plugin_name => "twitter",
+        :help => "tweet: mentions [number] -- get the most recent [number] mentions from twitter, defaults to three",
+        :prefix => "tweet: "
 
     def initialize(*args)
       super
@@ -15,9 +17,10 @@ module Plugin
       end
     end
 
-    match "mentions"
-    def execute m
-      ::Twitter.mentions(:count => 3).each do |tweet|
+    match /mentions(?: (\d+))?/
+    def execute m, count
+      count ||= 3
+      ::Twitter.mentions(:count => count).each do |tweet|
         m.reply "@#{tweet.user.screen_name}: #{tweet.text} at #{tweet.created_at}"
       end
     end
