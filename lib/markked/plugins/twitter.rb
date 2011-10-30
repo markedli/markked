@@ -10,10 +10,10 @@ module Plugin
     def initialize(*args)
       super
       ::Twitter.configure do |twitter|
-        twitter.consumer_key = config['twitter']['consumer_key']
-        twitter.consumer_secret = config['twitter']['consumer_secret']
-        twitter.oauth_token = config['twitter']['oauth_token']
-        twitter.oauth_token_secret = config['twitter']['oauth_token_secret']
+        twitter.consumer_key = config[:consumer_key]
+        twitter.consumer_secret = config[:consumer_secret]
+        twitter.oauth_token = config[:oauth_token]
+        twitter.oauth_token_secret = config[:oauth_token_secret]
       end
     end
 
@@ -23,10 +23,6 @@ module Plugin
       ::Twitter.mentions(:count => count).each do |tweet|
         m.reply "@#{tweet.user.screen_name}: #{tweet.text} at #{tweet.created_at}"
       end
-    end
-
-    def config
-      @config ||= $file_config
     end
   end
 end
