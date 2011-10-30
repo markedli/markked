@@ -3,6 +3,7 @@ require 'yaml'
 require 'markked/plugins/twitter'
 require 'markked/plugins/down'
 require 'markked/plugins/bit'
+require 'markked/plugins/auth'
 
 class Hash
   #take keys of hash and transform those to a symbols
@@ -32,7 +33,7 @@ end
 $bot = Cinch::Bot.new do
   configure do |c|
     c.load! file_config.delete(:irc)
-    c.plugins.plugins = [Plugin::Twitter, Plugin::Down, Plugin::Bit]
+    c.plugins.plugins = [Plugin::Auth, Plugin::Twitter, Plugin::Down, Plugin::Bit]
     c.plugins.options[Plugin::Twitter] = file_config.delete(:twitter)
   end
 end
