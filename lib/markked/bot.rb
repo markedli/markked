@@ -35,6 +35,7 @@ $bot = Cinch::Bot.new do
     c.load! file_config.delete(:irc)
     c.plugins.plugins = [Plugin::Auth, Plugin::Twitter, Plugin::Down, Plugin::Bit]
     c.plugins.options[Plugin::Twitter] = file_config.delete(:twitter)
+    c.plugins.options[Plugin::Auth][:auth] = Authorization.instance
   end
 end
 
